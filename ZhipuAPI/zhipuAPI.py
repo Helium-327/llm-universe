@@ -3,6 +3,7 @@ from dotenv import load_dotenv, find_dotenv
 
 _ = load_dotenv(find_dotenv())
 
+import prometheus_client
 from zhipuai import ZhipuAI
 
 client = ZhipuAI(
@@ -41,10 +42,17 @@ def get_completion(prompt,
     return "generate answer error"
 
 def choose_model():
-    model_list = 
-
+    model_list = [
+        "glm-3",
+        "glm-4"]
+    [print (i, model_list[i]) for i in range(len(model_list))]
+    model_index = int(input("请选择模型: "))
+    model = model_list[model_index]
+    return model
 
 if __name__ == "__main__":
-    prompt = input("请输入用户提示词:")
-    answer = get_completion(prompt=prompt)
+    # prompt = input("请输入用户提示词:")
+    prompt = "请输出2024年上半年中国的gdp数据"
+    model = choose_model()
+    answer = get_completion(prompt=prompt, model= model)
     print(answer)
